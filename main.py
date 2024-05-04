@@ -54,8 +54,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     # a list (hence `[[...]]`).
     keyboard = [
         [
-            InlineKeyboardButton("Расписание операторов 1", callback_data=str(ONE)),
-            InlineKeyboardButton("Расписание съёмок 2", callback_data=str(TWO)),
+            InlineKeyboardButton("Расписание операторов", callback_data=str(ONE)),
+            InlineKeyboardButton("Расписание съёмок", callback_data=str(TWO)),
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -74,8 +74,8 @@ async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await query.answer()
     keyboard = [
         [
-            InlineKeyboardButton("Расписание операторов 1", callback_data=str(ONE)),
-            InlineKeyboardButton("Расписание съёмок 2", callback_data=str(TWO)),
+            InlineKeyboardButton("Расписание операторов", callback_data=str(ONE)),
+            InlineKeyboardButton("Расписание съёмок", callback_data=str(TWO)),
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -97,9 +97,9 @@ async def one(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    #text_message, _ = await show_free_events(update, context)
+    text_message = await show_free_events()
     await query.edit_message_text(
-        text="Расписание на ближайшую неделю, Choose a route", reply_markup=reply_markup
+        text=text_message, reply_markup=reply_markup, parse_mode="HTML"
     )
     return START_ROUTES
 
