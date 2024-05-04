@@ -67,7 +67,7 @@ async def show_free_events():
                 sorted_events = sorted(events, key=lambda event: event.begin)
                 for event in sorted_events:
                     if event.begin.date() == today:  # Фильтрация событий на сегодня
-                        formatted_start = event.begin.strftime('%Y-%m-%d %H:%M:%S')
+                        formatted_start = event.begin.strftime('%d-%m %H:%M:%S')
                         message_text += f'<u><b>{formatted_start}</b> - </u>'
                         if event.name:
                             message_text += f'<u><b>{event.name}</b></u>\n'
