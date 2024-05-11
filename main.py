@@ -14,8 +14,8 @@ ConversationHandler.
 Send /start to initiate the conversation.
 Press Ctrl-C on the command line to stop the bot.
 """
+import asyncio
 import logging
-
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
     Application,
@@ -42,27 +42,38 @@ START_ROUTES, END_ROUTES = range(2)
 # Callback data
 ONE, TWO, THREE, FOUR = range(4)
 
+async def start_wile(update=None) -> None:
+    """Sends a message with three inline buttons attached."""
+    keyboard = [
+        [InlineKeyboardButton("Жмякай", callback_data="/start")],
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text("Please choose:", reply_markup=reply_markup)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Send message on `/start`."""
-    # Get user that sent /start and log his name
-    user = update.message.from_user
-    logger.info("User %s started the conversation.", user.first_name)
-    # Build InlineKeyboard where each button has a displayed text
-    # and a string as callback_data
-    # The keyboard is a list of button rows, where each row is in turn
-    # a list (hence `[[...]]`).
-    keyboard = [
-        [
-            InlineKeyboardButton("Расписание операторов", callback_data=str(ONE)),
-            InlineKeyboardButton("Расписание съёмок", callback_data=str(TWO)),
+        """Что бы запустить, отправьте сообщение `/start`."""
+        # Get user that sent /start and log his name
+        user = update.message.from_user
+        logger.info("User %s started the conversation.", user.first_name)
+        # Build InlineKeyboard where each button has a displayed text
+        # and a string as callback_data
+        # The keyboard is a list of button rows, where each row is in turn
+        # a list (hence `[[...]]`).
+        keyboard = [
+            [
+                InlineKeyboardButton("Расписание операторов", callback_data=str(ONE)),
+                InlineKeyboardButton("Расписание съёмок", callback_data=str(TWO)),
+            ]
         ]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    # Send message with text and appended InlineKeyboard
-    await update.message.reply_text("Привет. Я Бот MWTV для операторов. Чего изволите?", reply_markup=reply_markup)
-    # Tell ConversationHandler that we're in state `FIRST` now
-    return START_ROUTES
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        text_message = await show_free_events()
+        # Send message with text and appended InlineKeyboard
+        await update.message.reply_text(f"Привет. Я Бот MWTV для операторов. Чего изволите?\n{text_message}", reply_markup=reply_markup, parse_mode="HTML")
+        # Tell ConversationHandler that we're in state `FIRST` now
+        return START_ROUTES
+
 
 
 async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -202,4 +213,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    start_wile()
     main()
