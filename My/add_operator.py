@@ -23,12 +23,18 @@ def create_events(start_date, num_cycles, username):
 
     # Задаем список событий для каждого цикла
     cycle_events = [
-        {'title': 'Дежурство в студии', 'location': 'Студия на тверской', 'description': f'работает: \'{username}\'','categories': ['Графики работы']},
-        {'title': 'Дежурство в студии', 'location': 'Студия на тверской', 'description': f'работает: \'{username}\'','categories': ['Графики работы']},
-        {'title': 'Выезды/подхват', 'description': f'Работает \'{username}\'','categories': ['Графики работы']},
-        {'title': 'Выезды/подхват', 'description': f'Работает \'{username}\'','categories': ['Графики работы']},
-        {'title': 'Выходной', 'description': f'Работает \'{username}\'','categories': ['Графики работы']},
-        {'title': 'Выходной', 'description': f'Работает \'{username}\'','categories': ['Графики работы']}
+        {'title': f'Дежурство в студии {name}', 'location': 'Студия на тверской', 'description': f'{username}',
+         'categories': ['Графики работы'], 'tags': [name]},
+        {'title': f'Дежурство в студии {name}', 'location': 'Студия на тверской', 'description': f'{username}',
+         'categories': ['Графики работы'], 'tags': [name]},
+        {'title': f'Выезды/подхват {name}', 'description': f'{username}', 'categories': ['Графики работы'],
+         'tags': [name]},
+        {'title': f'Выезды/подхват {name}', 'description': f'{username}', 'categories': ['Графики работы'],
+         'tags': [name]},
+        {'title': f'Выходной {name}', 'description': f'{username}', 'categories': ['Графики работы'],
+         'tags': [name]},
+        {'title': f'Выходной {name}', 'description': f'{username}', 'categories': ['Графики работы'],
+         'tags': [name]}
     ]
 
     # Повторяем создание событий нужное количество раз
@@ -47,8 +53,9 @@ def create_events(start_date, num_cycles, username):
 
 # Текущая дата
 start_date = datetime.strptime('2024-05-12', '%Y-%m-%d')
-user_data = get_user_data("prozorovskiy_kirill")
-username = format_user_data(user_data, "prozorovskiy_kirill")
+user_data = get_user_data("Prozorovskiy_Kirill")
+name = user_data['name']
+username = format_user_data(user_data, "Prozorovskiy_Kirill")
 # Создаем события на 90 дней вперед (по x циклов по 6 дней)
 events = create_events(start_date, 20, username)
 
