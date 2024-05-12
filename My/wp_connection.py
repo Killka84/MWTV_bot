@@ -12,5 +12,5 @@ headers = {
     "Authorization": f"Basic {credentials_encoded}",
     "Content-Type": "application/json"
 }
-
-
+events_api_url = "https://mwtvoper.site/wp-json/tribe/events/v1/events"
+users_api_url = f"{wp_url}/wp-json/wp/v2/users"

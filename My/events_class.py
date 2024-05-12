@@ -18,8 +18,6 @@ def get_events():
 def display_events(events_data):
     # Получение списка событий
     events = events_data.get('events', [])
-    print(events)
-
     # Вывод информации о каждом событии
     for event in events:
         print("Название:", event.get('title'))
@@ -53,12 +51,13 @@ new_event_data = {
     }
 }
 
-# Добавляем новое событие
-#create_event(new_event_data)
-
-# Получаем данные о событиях
-events_data = get_events()
-
-# Отображаем список событий
-if events_data:
-    display_events(events_data)
+# # Добавляем новое событие
+# #create_event(new_event_data)
+#
+# # Получаем данные о событиях
+# events_data = get_events()
+# print(events_data)
+#
+# # Отображаем список событий
+# if events_data:
+#     display_events(events_data)

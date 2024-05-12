@@ -26,7 +26,8 @@ from telegram.ext import (
 )
 
 from My.bot_connection import bot_token
-from My.cal_connection import show_free_events
+from My.cal_connection import show_free_events, get_events
+from My.events_filters import text_message
 
 # Enable logging
 logging.basicConfig(
@@ -68,9 +69,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
             ]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        text_message = await show_free_events()
-        # Send message with text and appended InlineKeyboard
-        await update.message.reply_text(f"Привет. Я Бот MWTV для операторов. Чего изволите?\n{text_message}", reply_markup=reply_markup, parse_mode="HTML")
+        #text_message = await show_free_events()
+        await update.message.reply_text(f"Привет. Я Бот MWTV для операторов. Чего изволите?\n{text_message}",
+                                        reply_markup=reply_markup, parse_mode="HTML")
         # Tell ConversationHandler that we're in state `FIRST` now
         return START_ROUTES
 

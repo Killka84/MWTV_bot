@@ -18,7 +18,7 @@ def create_event(event_data):
         return None
 
 
-def create_events(start_date, num_cycles, username):
+def create_events_oper(start_date, num_cycles, username):
     events = []
 
     # Задаем список событий для каждого цикла
@@ -57,7 +57,7 @@ user_data = get_user_data("Prozorovskiy_Kirill")
 name = user_data['name']
 username = format_user_data(user_data, "Prozorovskiy_Kirill")
 # Создаем события на 90 дней вперед (по x циклов по 6 дней)
-events = create_events(start_date, 20, username)
+events = create_events_oper(start_date, 20, username)
 
 
 
